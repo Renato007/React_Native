@@ -5,38 +5,52 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    Dimensions
-} from 'react-native';
+    Dimensions,
+    View
+}
+    from 'react-native';
+import { Feather } from '@expo/vector-icons'
+
 import wateringImg from '../assets/watering.png';
+
+//boas praticas colocar uma pasta com as paletas de cores
 import colors from '../styles/colors';
+
+//boas praticas colocar uma pasta com as fontes
+import fonts from '../styles/fonts';
+
+
 export function Welcome() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>
-                Gerencie{'\n'} suas plantas{'\n'} de forma fácil
+            <View style={styles.wrapper}>
+                <Text style={styles.title}>
+                    Gerencie{'\n'} suas plantas de {'\n'} forma fácil
             </Text>
 
-            <Image
-                source={wateringImg}
-                style={styles.imagen}
-                resizeMode="contain" // permite não fixar a imagem
-             
-            />
+                <Image
+                    source={wateringImg}
+                    style={styles.imagen}
+                    resizeMode="contain" // permite não fixar a imagem
 
-            <Text style={styles.subtitle}>
-                Não esqueça mais de regar suas plantas. nós cuidamos de lembrar você sempre que precisar.
+                />
+
+                <Text style={styles.subtitle}>
+                    Não esqueça mais de regar suas plantas. nós cuidamos de lembrar você sempre que precisar.
             </Text>
 
-            <TouchableOpacity
+                <TouchableOpacity
 
-                style={styles.button}
-                activeOpacity={0.7}
-            >
-                <Text style={styles.buttontex}>
-                    >
-                </Text>
-            </TouchableOpacity>
+                    style={styles.button}
+                    activeOpacity={0.7}
+                >
+                    <Feather
+                        name="chevron-right"
+                        style={styles.buttonIcon}
+                    />
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
@@ -46,19 +60,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "space-around" // between usar o around para que ele não cole nas bordas. 
     },
+    wrapper: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: "space-around",
+        //isso tudo para colocar o padding
+        paddingHorizontal: 20
+    },
     title: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
         color: colors.heading,
-        marginTop: 38
+        marginTop: 38,
+        fontFamily: fonts.heading,
+        lineHeight: 34
 
     },
     subtitle: {
         textAlign: 'center',
         fontSize: 18,
         paddingHorizontal: 20,
-        color: colors.heading
+        color: colors.heading,
+        fontFamily: fonts.text
     },
     button: {
         backgroundColor: colors.green,
@@ -76,5 +100,9 @@ const styles = StyleSheet.create({
     imagen: {
         // evite trabalhar com valores fixos importe no react-native o pacote dimension
         height: Dimensions.get('window').width * 0.7
+    },
+    buttonIcon: {
+        fontSize: 32,
+        color: colors.white
     }
 })
