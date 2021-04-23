@@ -1,6 +1,6 @@
 import React from 'react';
 //forma de importar uma pagina
-import { Welcome } from './src/pages/Welcome';
+import { UserIdentification } from './src/pages/UserIdentification';
 // @expo-google-fonts é a melhor forma para carregar fontes 
 import {
   useFonts,
@@ -20,6 +20,6 @@ export default function App() {
     return <AppLoading/>
     
  return(
-  <Welcome />
+  <UserIdentification />
   )
 }
