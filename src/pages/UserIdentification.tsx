@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -9,6 +9,9 @@ import {
     Platform
 } from 'react-native';
 
+
+
+import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components/Button';
 
 
@@ -17,6 +20,32 @@ import fonts from '../styles/fonts';
 
 
 export function UserIdentification() {
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
+    const [name, setName] = useState<String>();
+
+    const navigation = useNavigation();
+    
+    function handleInputBlur() {
+        setIsFocused(false);
+        setIsFilled(!!name);
+    }
+
+    function handleInputFocus() {
+        setIsFocused(true);
+    }
+
+    function handleInputChange(value: string) {
+        setIsFilled(!!value);
+        setName(value);
+
+    }
+
+
+function handleSubmit(){
+navigation.navigate('Confirmation');
+}
+
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
@@ -27,19 +56,30 @@ export function UserIdentification() {
                     <View style={styles.form}>
                         <View style={styles.header}>
                             <Text style={styles.emoji}>
-                                emotion
+                                {isFilled ? "emotion": "emotion2"}
                     </Text>
                             <Text style={styles.title}>
                                 Como podemos{'\n'} chamar você ?
                     </Text>
                         </View>
                         <TextInput
-                            style={styles.input}
+                            style={[
+                                styles.input,
+                                (isFocused || isFilled) &&
+                                { borderColor: colors.green }
+
+                            ]}
                             placeholder="Digite um nome"
+                            onBlur={handleInputBlur}//quando ele sai do textimput,
+                            onFocus={handleInputFocus}// coca no textimput
+                            onChangeText={handleInputChange}
                         />
                         <View style={styles.footer}>
 
-                            <Button />
+                            <Button
+                            title="Confirmar"
+                            onPress={handleSubmit}
+                            />
 
                         </View>
                     </View>
@@ -66,10 +106,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 54,
         alignItems: 'center'
-        
+
     },
-    header:{
-       alignItems:"center" 
+    header: {
+        alignItems: "center"
     },
     emoji: {
 
