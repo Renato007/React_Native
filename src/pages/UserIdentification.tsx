@@ -6,7 +6,9 @@ import {
     Text,
     TextInput,
     KeyboardAvoidingView, //para fazer com que o bloco se mova para cima quando aparecer o teclado.Elementos não podem estar soltos.Boa pratica colocar dentro de uma View
-    Platform
+    Platform,
+    TouchableWithoutFeedback,
+    Keyboard
 } from 'react-native';
 
 
@@ -25,7 +27,7 @@ export function UserIdentification() {
     const [name, setName] = useState<String>();
 
     const navigation = useNavigation();
-    
+
     function handleInputBlur() {
         setIsFocused(false);
         setIsFilled(!!name);
@@ -42,9 +44,9 @@ export function UserIdentification() {
     }
 
 
-function handleSubmit(){
-navigation.navigate('Confirmation');
-}
+    function handleSubmit() {
+        navigation.navigate('Confirmation');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -52,38 +54,40 @@ navigation.navigate('Confirmation');
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                <View style={styles.content}>
-                    <View style={styles.form}>
-                        <View style={styles.header}>
-                            <Text style={styles.emoji}>
-                                {isFilled ? "emotion": "emotion2"}
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.content}>
+                        <View style={styles.form}>
+                            <View style={styles.header}>
+                                <Text style={styles.emoji}>
+                                    {isFilled ? "emotion" : "emotion2"}
+                                </Text>
+                                <Text style={styles.title}>
+                                    Como podemos{'\n'} chamar você ?
                     </Text>
-                            <Text style={styles.title}>
-                                Como podemos{'\n'} chamar você ?
-                    </Text>
-                        </View>
-                        <TextInput
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) &&
-                                { borderColor: colors.green }
+                            </View>
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    (isFocused || isFilled) &&
+                                    { borderColor: colors.green }
 
-                            ]}
-                            placeholder="Digite um nome"
-                            onBlur={handleInputBlur}//quando ele sai do textimput,
-                            onFocus={handleInputFocus}// coca no textimput
-                            onChangeText={handleInputChange}
-                        />
-                        <View style={styles.footer}>
-
-                            <Button
-                            title="Confirmar"
-                            onPress={handleSubmit}
+                                ]}
+                                placeholder="Digite um nome"
+                                onBlur={handleInputBlur}//quando ele sai do textimput,
+                                onFocus={handleInputFocus}// coca no textimput
+                                onChangeText={handleInputChange}
                             />
+                            <View style={styles.footer}>
 
+                                <Button
+                                    title="Confirmar"
+                                    onPress={handleSubmit}
+                                />
+
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
