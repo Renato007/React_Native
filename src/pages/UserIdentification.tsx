@@ -59,7 +59,7 @@ export function UserIdentification() {
                         <View style={styles.form}>
                             <View style={styles.header}>
                                 <Text style={styles.emoji}>
-                                    {isFilled ? "emotion" : "emotion2"}
+                                    {isFilled ? "😁" : "😀"} 
                                 </Text>
                                 <Text style={styles.title}>
                                     Como podemos{'\n'} chamar você ?
